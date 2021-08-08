@@ -1,0 +1,13 @@
+<div>
+    <a href="{% url 'people:person' person.pk %}">
+        <div class="shadow w-full h-78 bg-cover bg-center rounded-lg mb-2" style="background-image: url({{person.photo.url}});"></div>
+        <div class="flex justify-between my-2">
+            <div class="w-4/5 overflow-hidden flex">
+                <span class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                    {{person.kind}}
+                </span>
+            </div>
+        </div>
+        <span class="text-black w-11/12 block truncate">{{person.name}}</span>
+    </a>
+</div>

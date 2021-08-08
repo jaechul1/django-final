@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {{user_obj.first_name}}'s Profile
+{% endblock page_title %}
+
+{% block content %}
+
+<div class="mt-8 container mx-auto flex flex-col items-center">
+    
+    <span class="font-medium text-2xl block">{{user_obj.first_name}}</span>
+
+    {% if user_obj.bio %}
+      <span class="block mt-2">{{user_obj.bio}}</span>
+    {% endif %}
+
+    <span class="block mt-2 text-lg">{{user_obj.language|capfirst}}</span>
+
+    <div class="mt-2">Prefer: 
+        {% if user_obj.preference == 'movies' %}
+            <a href="{% url 'movies:movies' %}" class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                {{user_obj.preference}}
+            </a>
+        {% else %}
+            <a href="{% url 'books:books' %}" class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                {{user_obj.preference}}
+            </a>
+        {% endif %}
+    </div>
+
+    {% if user_obj.fav_book_cat %}
+        <div class="mt-2">Fav. Book Category: 
+            <a href="{% url 'categories:category' user_obj.fav_book_cat.pk %}" class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                {{user_obj.fav_book_cat}}
+            </a>
+        </div>
+    {% endif %}
+    {% if user_obj.fav_movie_cat %}
+        <div class="mt-2">Fav. Movie Category: 
+            <a href="{% url 'categories:category' user_obj.fav_movie_cat.pk %}" class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                {{user_obj.fav_movie_cat}}
+            </a>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'users:update' %}" class="bg-blue-400 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded block mt-2 mb-6">Edit Profile</a>
+
+</div>
+    
+{% endblock content %} 

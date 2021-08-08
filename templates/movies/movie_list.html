@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Movies
+{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mx-auto">
+    <div class="mt-8 px-5">
+        <div class="text-center">
+    	      <span class="text-3xl font-medium">Movies</a>
+        </div>
+        <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+    	      {% for movie in movies %}
+                {% include "mixins/movie.html" with movie=movie %}
+    	      {% endfor %}
+        </div>
+    </div>
+
+    <div class="text-center font-medium mb-6">
+        {% if page_obj.has_previous %}
+            <a class="bg-blue-400 hover:bg-blue-600 text-white py-1 px-2 rounded" href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        <span class="font-medium text-blue-600 mx-2">
+            Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+        </span>
+
+        {% if page_obj.has_next  %}
+            <a class="bg-blue-400 hover:bg-blue-600 text-white py-1 px-2 rounded" href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

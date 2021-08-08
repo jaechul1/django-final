@@ -1,0 +1,13 @@
+  <header class="flex justify-between bg-blue-400 text-white py-4">
+    <a href="{% url 'core:home' %}" class="w-1/4 pl-16">Home</a>
+    <div class="w-1/4 flex justify-between pr-16">
+      <a href="{% url 'core:search' %}">Search</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}">Log Out</a>
+        <a href="{% url 'users:profile' user.pk %}">My Profile</a>
+      {% else %}
+        <a href="{% url 'users:login' %}">Log In</a>
+        <a href="{% url 'users:signup' %}">Sign Up</a>
+      {% endif %}
+    </div>
+  </header>

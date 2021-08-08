@@ -1,0 +1,18 @@
+<div>
+    <a href="{% url 'books:book' book.pk %}">
+        <div class="shadow w-full h-78 bg-cover bg-center rounded-lg mb-2" style="background-image: url({{book.cover_image.url}});"></div>
+        <div class="flex justify-be tween my-2">
+            <div class="w-4/5 overflow-hidden flex">
+                <span class="uppercase font-medium text-xs border border-black text-black py-px px-1 mr-1.5">
+                    {{book.category}}
+                </span>
+            </div>
+            <span class="text-sm flex items-center">
+                <i class="fas fa-star text-red-500 text-xs mr-1"></i> 
+                {{book.rating}}
+            </span>
+        </div>
+        <span class="text-black w-11/12 block truncate">{{book.title}}</span>
+        <span class="text-sm text-gray-600 block truncate">{{book.year}}</span>
+    </a>
+</div>

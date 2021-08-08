@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {{person.name}}
+{% endblock page_title %}
+
+{% block content %}
+
+<div class="mt-8 container mx-auto flex flex-col items-center">
+    
+    <div class="flex">
+      <span class="font-normal text-xl block mr-1">{{person.name}}</span>
+    </div>
+
+    <div class="w-1/5 h-104 shadow bg-cover bg-center rounded-lg mt-6 mb-4" style="background-image: url({{person.photo.url}});"></div>
+    
+    <div>
+        <span class="uppercase font-medium text-xs border border-black text-black py-px px-1">
+            {{person.kind|capfirst}}
+        </span>
+    </div>
+
+    <div class="mt-4 mb-6">
+        <a class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded shadow" href="{% url 'people:update' person.pk %}">Edit Person</a>
+    </div>
+
+    {% if person.books.count > 0 %}
+        <div class="my-4">Wrote: 
+        {% for book in person.books.all %} 
+            <a href="{% url 'books:book' book.pk %}" class="text-blue-400 hover:text-blue-600">{{book}}{% if not forloop.last %}<span class="text-gray-800">, </span>{% endif %}</a> 
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if person.movies.count > 0 %}
+        <div class="my-4">Directed: 
+        {% for movie in person.movies.all %} 
+            <a href="{% url 'movies:movie' movie.pk %}" class="text-blue-400 hover:text-blue-600">{{movie}}{% if not forloop.last %}<span class="text-gray-800">, </span>{% endif %}</a> 
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if person.starred_movies.count > 0 %}
+        <div class="my-4">Starred: 
+        {% for movie in person.starred_movies.all %} 
+            <a href="{% url 'movies:movie' movie.pk %}" class="text-blue-400 hover:text-blue-600">{{movie}}{% if not forloop.last %}<span class="text-gray-800">, </span>{% endif %}</a> 
+        {% endfor %}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

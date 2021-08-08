@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {{category.name}}
+{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mx-auto">
+
+    <div class="my-6 text-3xl font-medium text-center">Results for "{{category.name}}"</div>
+
+    <hr />
+
+    <div class="my-8 px-5">
+        <div class="text-center">
+    	      <span class="text-3xl font-medium">Movies</span>
+        </div>
+        {% if not category.movies.all %}
+            <div class="w-full text-center mt-6"><span>No Movies Found</span></div>
+        {% else %}
+            <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+                {% for movie in category.movies.all %}
+                    {% include "mixins/movie.html" with movie=movie %}
+	              {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <hr />
+
+    <div class="my-8 px-5">
+        <div class="text-center">
+    	      <span class="text-3xl font-medium">Books</span>
+        </div>
+        {% if not category.books.all %}
+            <div class="w-full text-center mt-6"><span>No Books Found</span></div>
+        {% else %}
+            <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+                {% for book in category.books.all %}
+                    {% include "mixins/book.html" with book=book %}
+	              {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock content %}

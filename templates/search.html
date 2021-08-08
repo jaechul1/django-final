@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Search
+{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mx-auto">
+    
+    <form class="flex justify-center w-full my-8" method="GET"> 
+      <input name="term" class="border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Search Movie, Book or Person" />
+      <button class="bg-blue-400 hover:bg-blue-600 text-white font-medium ml-2 py-2 px-4 rounded">Search</button>
+    </form>
+
+    <div class="block text-gray-700 text-center text-3xl font-medium mb-6">
+        {% if term %}
+            Results for "{{term}}"
+        {% else %}
+            Categories
+        {% endif %}
+    </div>
+
+    {% if not term %}
+        <div class="inline-block relative w-full flex flex-wrap my-5">
+            {% for category in categories %}
+            <div class="bg-orange-400 text-white px-5 shadow-md py-2 rounded-full mb-2 mr-2">
+                <a href="{% url 'categories:category' category.pk %}">{{category.name}}</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr />
+
+    {% if term %}
+        <div class="my-8 px-5">
+            <div class="text-center">
+    	          <span class="text-3xl font-medium">Movies</span>
+            </div>
+            {% if not movies %}
+                <div class="w-full text-center mt-6"><span>No Movies Found</span></div>
+            {% else %}
+                <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+                    {% for movie in movies %}
+                        {% include "mixins/movie.html" with movie=movie %}
+	                  {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <hr class="w-full" />
+
+        <div class="my-8 px-5">
+            <div class="text-center">
+    	          <span class="text-3xl font-medium">Books</span>
+            </div>
+            {% if not books %}
+                <div class="w-full text-center mt-6"><span>No Books Found</span></div>
+            {% else %}
+                <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+                    {% for book in books %}
+                        {% include "mixins/book.html" with book=book %}
+	                  {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <hr class="w-full" />
+
+        <div class="my-8 px-5">
+            <div class="text-center">
+    	          <span class="text-3xl font-medium">People</span>
+            </div>
+            {% if not people %}
+                <div class="w-full text-center mt-6"><span>No People Found</span></div>
+            {% else %}
+                <div class="grid grid-cols-6 gap-x-8 gap-y-16 -mx-24 mt-6 mb-16">
+                    {% for person in people %}
+                        {% include "mixins/person.html" with person=person %}
+	                  {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock content %}
